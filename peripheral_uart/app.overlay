@@ -1,0 +1,23 @@
+/*
+ * Copyright (c) 2022 Nordic Semiconductor ASA
+ *
+ * SPDX-License-Identifier: LicenseRef-Nordic-5-Clause
+ */
+
+/ {
+	chosen {
+		nordic,nus-uart = &uart0;
+	};
+};
+
+/* 显式引用 Thingy:53 官方板包内置的麦克风引脚定义 */
+#include <dt-bindings/pinctrl/nrf5340_application-pinctrl.h>
+
+&pdm0 {
+    status = "okay";
+    pinctrl-0 = <&pdm0_default>;
+    pinctrl-names = "default";
+    /* 1.032 MHz 的时钟频率完美匹配 16kHz 采样率，对语音识别最友好 */
+    clock-frequency = <1032258>;
+};
+
